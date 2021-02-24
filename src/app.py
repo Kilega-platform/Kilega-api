@@ -30,9 +30,11 @@ def create_app(environment):
 
     # import blueprints
     from controllers.check_health import monitor_bp
+    from controllers.songs import songs_bp
 
     # register blueprints
     app.register_blueprint(monitor_bp)
+    app.register_blueprint(songs_bp)
 
     return app
 
