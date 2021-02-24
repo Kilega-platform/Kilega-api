@@ -10,7 +10,7 @@ class Hymns():
         """ initialize """
         self.lang = lang
 
-    def get_all_songs(self):
+    def get_all_hymns(self):
         """ get all songs from the songs collection """
         db = db_connection.connect_mongo(self.lang)
         results = list(db.hymns.find({}))
