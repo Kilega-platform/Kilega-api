@@ -17,7 +17,7 @@ class Config:
     CSRF_ENABLED = True
     SECRET_KEY = os.getenv("SECRET_KEY")
     DB_NAME = os.getenv("DB_NAME_PROD")
-    MONGO_URI = os.getenv('MONGO_GCE_URI')
+    MONGO_URI = os.getenv('MONGO_PROD_URI')
 
 
 class ProductionConfig(Config):
@@ -38,7 +38,7 @@ class TestingConfig(Config):
     load_dotenv(dotenv_path)
     DEBUG = True
     TESTING = True
-    MONGO_URI = os.getenv('MONGO_GCE_URI')
+    MONGO_URI = os.getenv('MONGO_STAGE_URI')
     DB_NAME = os.getenv("DB_NAME_STAGE")
 
 
