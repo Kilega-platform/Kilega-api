@@ -6,6 +6,7 @@ from flask_cors import CORS
 from flask_pymongo import PyMongo
 from config import constants
 from dotenv import load_dotenv
+from flask_mail import Mail
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,8 @@ def create_app(environment):
 
     # Allow cross-brower resource sharing
     CORS(app)
+    # add mailing at the project entry point
+    Mail(app)
 
     # import blueprints
     from controllers.check_health import monitor_bp
