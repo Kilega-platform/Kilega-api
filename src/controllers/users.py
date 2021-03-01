@@ -25,11 +25,13 @@ def register_user():
     user registration
     '''
     if request.method == 'POST':
-        required_args = ['lang', 'userName',
+        required_args = ['userName',
                          'password', 'confirmPassword', 'email', 'privilege']
         errors = {}
+        if not request.args.get('lang'):
+            errors['lang'] = "'lang' is a required parameter"
         for arg in required_args:
-            if not request.args.get(arg):
+            if not request.json.get(arg):
                 errors[arg] = f"'{arg}' is a required parameter"
         if errors:
             return jsonify(dict(
@@ -39,13 +41,13 @@ def register_user():
             )), 400
 
         lang = request.args.get('lang').strip()
-        user_name = request.args.get('userName').strip()
-        email = request.args.get('email')
-        password = request.args.get('password').strip().encode("utf-8")
-        plain_password = request.args.get('password')
-        confirm_password = request.args.get(
+        user_name = request.json.get('userName').strip()
+        email = request.json.get('email')
+        password = request.json.get('password').strip().encode("utf-8")
+        plain_password = request.json.get('password')
+        confirm_password = request.json.get(
             'confirmPassword').strip().encode("utf-8")
-        privilege = request.args.get('privilege').strip()
+        privilege = request.json.get('privilege').strip()
 
         model = users.User(lang)
 
