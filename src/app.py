@@ -7,6 +7,7 @@ from flask_pymongo import PyMongo
 from config import constants
 from dotenv import load_dotenv
 from flask_mail import Mail
+from flask_jwt_extended import JWTManager
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -17,6 +18,8 @@ _logger = logging.getLogger(__name__)
 
 # db initialization
 mongo = PyMongo()
+mail = Mail()
+jwt = JWTManager()
 
 
 def create_app(environment):
@@ -25,19 +28,21 @@ def create_app(environment):
 
     app.config.from_object(constants.app_config[environment])
     mongo.init_app(app)
+    mail.init_app(app)
+    jwt.init_app(app)
 
     # Allow cross-brower resource sharing
     CORS(app)
-    # add mailing at the project entry point
-    Mail(app)
 
     # import blueprints
     from controllers.check_health import monitor_bp
     from controllers.hymns import hymns_bp
+    from controllers.users import users_bp
 
     # register blueprints
     app.register_blueprint(monitor_bp)
     app.register_blueprint(hymns_bp)
+    app.register_blueprint(users_bp)
 
     return app
 
