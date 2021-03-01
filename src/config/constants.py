@@ -25,6 +25,7 @@ class Config:
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
     MAIL_USE_TLS = os.getenv('MAIL_USE_TLS')
     MAIL_USE_SSL = os.getenv('MAIL_USE_SSL')
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 
 
 class ProductionConfig(Config):
