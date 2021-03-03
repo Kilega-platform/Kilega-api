@@ -12,7 +12,7 @@ PROJECT_PATH=src
 echo "-----> My Subdir buildpack: path is $PROJECT_PATH"
 echo "       creating cache: $CACHE_DIR"
 mkdir -p $CACHE_DIR
-TMP_DIR=`mktemp -d $CACHE_DIR/subdir`
+TMP_DIR=`mktemp -d $CACHE_DIR/subdirXXXXX`
 echo "       created tmp dir: $TMP_DIR"
 
 echo "       moving working dir: $PROJECT_PATH to $TMP_DIR"
