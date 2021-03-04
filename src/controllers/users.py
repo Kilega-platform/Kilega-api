@@ -47,7 +47,7 @@ def register_user():
             'confirmPassword').strip().encode("utf-8")
         privilege = request.json.get('privilege').strip()
 
-        model = users.User(lang)
+        model = users.User()
 
         if password != confirm_password:
             return jsonify(
@@ -120,7 +120,7 @@ def login_user():
         email = request.json.get("email", None)
         password = request.json.get("password", None).strip().encode('utf-8')
 
-        model = users.User(lang)
+        model = users.User()
         login = model.login_user(email, password)
         if login:
             message = "successfully logged"
@@ -149,7 +149,7 @@ def get_users():
     '''
     # current_user = get_jwt_identity()
     if request.method == 'GET':
-        model = users.User(lang)
+        model = users.User()
 
         documents = model.get_users()
         return jsonify({"message": "list of users", "data": documents}), HTTPStatus.OK
