@@ -12,5 +12,5 @@ app_configuration = constants.app_config.get(os.getenv("FLASK_ENV"))
 
 def connect_mongo(lang):
     client = MongoClient(app_configuration.MONGO_URI)
-    db = client[f'{app_configuration.DB_NAME}_{lang.lower()}']
+    db = client[app_configuration.DB_NAME]
     return db
