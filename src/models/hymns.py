@@ -8,7 +8,7 @@ class Hymns():
 
     def __init__(self, lang):
         """ initialize """
-        self.lang = lang
+        self.lang = lang.lower()
 
     def get_all_hymns(self):
         """ get all songs from the songs collection """
