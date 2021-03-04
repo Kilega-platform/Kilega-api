@@ -6,6 +6,7 @@ from pymongo.errors import OperationFailure
 
 class User():
     def __init__(self):
+        """ initialization"""
 
     def register_user(self, record):
         db = db_connection.connect_mongo()
