@@ -28,8 +28,7 @@ def register_user():
         required_args = ['userName',
                          'password', 'confirmPassword', 'email', 'privilege']
         errors = {}
-        if not request.args.get('lang'):
-            errors['lang'] = "'lang' is a required parameter"
+
         for arg in required_args:
             if not request.json.get(arg):
                 errors[arg] = f"'{arg}' is a required parameter"
@@ -40,7 +39,6 @@ def register_user():
                 errors=errors
             )), 400
 
-        lang = request.args.get('lang').strip()
         user_name = request.json.get('userName').strip()
         email = request.json.get('email')
         password = request.json.get('password').strip().encode("utf-8")
@@ -49,7 +47,7 @@ def register_user():
             'confirmPassword').strip().encode("utf-8")
         privilege = request.json.get('privilege').strip()
 
-        model = users.User(lang)
+        model = users.User()
 
         if password != confirm_password:
             return jsonify(
@@ -109,8 +107,6 @@ def login_user():
     if request.method == 'POST':
         required_args = ['email', 'password']
         errors = {}
-        if not request.args.get('lang'):
-            error['lang'] = 'is a reuired parameter'
         for arg in required_args:
             if not request.json.get(arg):
                 errors[arg] = f"'{arg}' is a required parameter"
@@ -123,9 +119,8 @@ def login_user():
 
         email = request.json.get("email", None)
         password = request.json.get("password", None).strip().encode('utf-8')
-        lang = request.args.get('lang')
 
-        model = users.User(lang)
+        model = users.User()
         login = model.login_user(email, password)
         if login:
             message = "successfully logged"
@@ -154,19 +149,7 @@ def get_users():
     '''
     # current_user = get_jwt_identity()
     if request.method == 'GET':
-        required_args = ['lang']
-        errors = {}
-        for arg in required_args:
-            if not request.args.get(arg):
-                errors[arg] = f"'{arg}' is a required parameter"
-        if errors:
-            return jsonify(dict(
-
-                message="please specify one of the following query parameters. Refer to the API documentation for details.",
-                errors=errors
-            )), HTTPStatus.BAD_REQUEST
-        lang = request.args.get('lang')
-        model = users.User(lang)
+        model = users.User()
 
         documents = model.get_users()
         return jsonify({"message": "list of users", "data": documents}), HTTPStatus.OK

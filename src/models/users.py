@@ -5,11 +5,11 @@ from pymongo.errors import OperationFailure
 
 
 class User():
-    def __init__(self, lang):
-        self.lang = lang
+    def __init__(self):
+        """ initialization"""
 
     def register_user(self, record):
-        db = db_connection.connect_mongo(self.lang)
+        db = db_connection.connect_mongo()
         result = db.users.insert_one(record)
         return result
 
@@ -19,12 +19,12 @@ class User():
     # check if user exist
 
     def is_user_exist(self, email):
-        db = db_connection.connect_mongo(self.lang)
+        db = db_connection.connect_mongo()
         result = db.users.find_one({"email": email})
         return result
 
     def login_user(self, email, password):
-        db = db_connection.connect_mongo(self.lang)
+        db = db_connection.connect_mongo()
         result = db.users.find_one({"email": email})
         if result:
             stored_password = result["password"]
@@ -33,5 +33,5 @@ class User():
         return False
 
     def get_users(self):
-        db = db_connection.connect_mongo(self.lang)
+        db = db_connection.connect_mongo()
         return list(db.users.find({}, {"email": 1, "privilege": 1, "userName": 1, "_id": 0}))
