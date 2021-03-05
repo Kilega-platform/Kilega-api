@@ -2,6 +2,7 @@ import smtplib
 from config.db_connection import app_configuration
 from dotenv import load_dotenv
 from email.message import EmailMessage
+from email.utils import make_msgid
 load_dotenv()
 
 MAIL_USERNAME = app_configuration.MAIL_USERNAME
@@ -12,6 +13,7 @@ MAIL_PORT = app_configuration.MAIL_PORT
 
 def send_email(subject, sender, recipients, body):
     msg = EmailMessage()
+    msg['Message-ID'] = make_msgid()
     msg['Subject'] = subject
     msg['From'] = sender
     msg['To'] = recipients
